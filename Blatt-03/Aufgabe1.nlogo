@@ -39,13 +39,13 @@ to setup-turtles
       ifelse(count immunes < number-of-immunes)[
         set breed immunes
         set color green
-        set energy 100
+        set energy random 100
         set label energy
       ]
       [
       set breed humans
       set color grey
-      set energy 100
+      set energy random 100
       set label energy
       ]
     ]
@@ -125,10 +125,10 @@ to reproduce
   ask turtles[
     let immune-parent false
     if(breed != zombies)[
-      if(breed = immunes)[
+      if(breed = immunes and energy <= 80)[
         set immune-parent true
       ]
-      ask other turtles-here with[breed = humans or breed = immunes][
+      ask other turtles-here with[(breed = humans or breed = immunes) and energy <= 80][
         if random 100 < chance-reproduction[
           ifelse(immune-parent = true)[
             ifelse random 100 < chance-immune-child[
@@ -252,7 +252,7 @@ initial-zombie-percentage
 initial-zombie-percentage
 0
 100
-50
+4
 1
 1
 NIL
@@ -377,7 +377,7 @@ chance-reproduction
 chance-reproduction
 0
 100
-17.3
+3.1
 0.1
 1
 NIL
