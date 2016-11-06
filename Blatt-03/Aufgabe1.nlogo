@@ -1,5 +1,3 @@
-
-
 breed [humans human]
 breed [zombies zombie]
 breed [immunes immune]
@@ -31,7 +29,7 @@ to setup-turtles
       ; make the turtle a zombie
       set breed zombies
       set energy zombie-start-energy
-      set label energy
+      ;set label energy
       set color red
     ]
     [
@@ -40,13 +38,13 @@ to setup-turtles
         set breed immunes
         set color green
         set energy random 100
-        set label energy
+        ;set label energy
       ]
       [
       set breed humans
       set color grey
       set energy random 100
-      set label energy
+      ;set label energy
       ]
     ]
   ]
@@ -62,11 +60,11 @@ to go
   ask turtles[
     ifelse(breed != zombies)[
       set energy energy - 1
-      set label energy
+      ;set label energy
     ]
     [
       set energy energy - energy-loss-per-tick
-      set label energy
+      ;set label energy
     ]
 
     ]
@@ -93,6 +91,9 @@ to go
   if count turtles = 0 [
     stop
   ]
+  if count turtles with[breed = zombies] = 0 [
+    stop
+  ]
 end
 
 
@@ -107,8 +108,8 @@ to attack-human
   ask turtles-here with [breed = humans][
     ; transform the human into a zombie
     set breed zombies
-    set energy zombie-start-energy
-    set label energy
+    ;set energy zombie-start-energy
+    ;set label energy
     set color red
   ]
 end
@@ -132,14 +133,26 @@ to reproduce
         if random 100 < chance-reproduction[
           ifelse(immune-parent = true)[
             ifelse random 100 < chance-immune-child[
-             hatch-immunes 1 [set color green set energy 100 set label energy]
+             hatch-immunes 1 [
+                set color green
+                set energy 100
+                ;set label energy
+              ]
             ]
             [
-            hatch-humans 1 [set color gray set energy 100 set label energy]
+            hatch-humans 1 [
+                set color gray
+                set energy 100
+                ;set label energy
+              ]
             ]
           ]
           [
-            hatch-humans 1 [set color gray set energy 100 set label energy]
+            hatch-humans 1 [
+                set color gray
+                set energy 100
+                ;set label energy
+            ]
           ]
         ]
       ]
