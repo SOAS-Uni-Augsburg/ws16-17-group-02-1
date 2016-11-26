@@ -1,0 +1,261 @@
+\documentclass[mathserif, xcolor=divipsnames]{beamer}
+\usepackage{ngerman,amsmath,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage[ngerman]{babel}
+\usepackage{tikz,rotating}
+\usetikzlibrary{shapes,calc}
+\tikzset{
+  treenode/.style = {align=center, inner sep=0pt, text centered,
+    font=\sffamily}
+}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\usetheme{Ilmenau}
+\usefonttheme{structuresmallcapsserif}
+\title{Übungsblatt 06\\
+Aufgabe 2 (Extensive Spiele)}
+\author{Tim Blome, Michael Koller, Ayleen Schinko}
+\date{02. Dezember 2016}
+\begin{document}
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\section{Aufgabe 2 a}
+\begin{frame}
+  \footnotesize a) Zeigen Sie, dass es kein Normalformspiel gegen kann, in dem es kein
+  pareto-optimalen Ausgang gibt.\\
+  \vspace{0.2cm}
+  \normalsize
+  \only<1>{\begin{Definition}[Strategisches Spiel (Normalform)]
+    Ein strategisches Spiel $G = \left< N, (A_i)_{i\in N}, (u_i)_{i\in N}
+    \right>$ besteht aus
+    \begin{itemize}
+      \item einer endlichen Menge $N = 1,\dots , n$ an Spielern
+      \item einer Menge an Aktion $A_i$ für jeden Spieler
+      \item einer Nutzenfunktion (utility) $u_i : A_1 \times \dots \times A_n
+        \rightarrow \mathbb{R}$ für jeden Spieler.
+    \end{itemize}
+  \end{Definition}}
+  \only<2>{\begin{Definition}[pareto-optimal]
+    Ein Ausgang $o^*$ ist pareto-optimal, wenn er von keinem anderen Ausgang
+    pareto-dominiert wird.
+  \end{Definition}
+  Wenn $o$ und $o'$ Ausgänge eines Spieles eines, sodass $o$ für alle Spieler
+  mindestens so gut ist wie $o'$ und $o$ von einem Spieler echt bevorzugt wird,
+  dann pareto-dominiert $o$ $o'$.}
+  \only<3>{\small Wir gehen davon aus, dass für jeden Spieler die Aktionsmenge endlich
+  und nicht leer ist.\\
+  Da für jeden Spieler die Nutzenfunktion einen Wert aus $\mathbb{R}$ liefert
+  und die $\leq$-Ordnung eine totale Ordnung Bildet auf $\mathbb{R}$, kann für
+  jede Komponente eines Ausgangs ein eindeutiger Vergleich zu jedem anderen
+  Ausgang hergestellt werden.\\
+  Widerspruchsbeweis: Angenommen: Es gibt ein Normalform spiel, in dem es
+  keinen pareto-optimalen Ausgang gibt.\\
+  So müssen alle Ausgänge einen Zyklus bilden oder eine unendliche besser
+  werdend Kette.\\
+  Da auf den Ausgängen eine partielle Ordnung existiert, kann kein Zyklus
+  in den Ausgangstupeln möglich sein. Die unendliche besser werdende Kette ist
+  nicht möglich, dass das Spiel endlich ist, da alle Aktionsmenge der Spieler
+  als endlich angenommen wurden.\\
+  Es muss also in der Tupelmenge der Ausgänge mindestens ein lokales Maximum
+  existieren, dass nach Definition dann pareto-optimal ist.
+  }
+\end{frame}
+
+\section{Aufgabe 2 b}
+\begin{frame}[fragile]
+  \footnotesize b) Angenommen, zwei Spieler teilen 50 (gleichwertige) Münzen auf. Der Nutzen
+  von Spielern ist die Menge von erhaltenen Münzen. Zuerst kann Spieler 1 die
+  Münzen aufteilen, danach Spieler 2 den Anteil wählen. Bestimmen Sie ein
+  Nash-Gleichgewicht mittels Rückwärtsinduktion.\\
+  \vspace{0.5cm}
+  \normalsize
+  \begin{tikzpicture}[level/.style = {sibling distance = 35mm/#1, level
+    distance = 2cm}]
+    \node [treenode,ellipse,draw] (A1) {Agent 1\\$(25,25)$}
+    child{ node [treenode,ellipse,draw] (A21) {Agent 2\\$(50-x,x)$}
+      child{ node (E1) {$(50-x,x)$}}
+      child{ node (E2) {$(x,50-x)$}}}
+    child{ node [treenode,ellipse,draw] (A22) {Agent 2\\$(25,25)$}
+      child{ node (E3) {$(25,25)$}}
+      child{ node (E4) {$(25,25)$}}}
+    child{ node [treenode,ellipse,draw] (A23) {Agent 2\\$(x,50-x)$}
+      child{ node (E5) {$(50-x,x)$}}
+      child{ node (E6) {$(x,50-x)$}}};
+
+      \path (A1) -- (A21) node[near start, above left] {$x > 50-x$};
+      \path [draw=orange] (A1) -- (A22) node[near start] {$x = 50-x$};
+      \path (A1) -- (A23) node[near start, above right] {$x < 50-x$};
+      \path [draw=orange] (A21) -- (E1) node[near start, left] {$x$};
+      \path (A21) -- (E2) node[near start, right] {$50-x$};
+      \path [draw=orange] (A22) -- (E3) node[near start, left] {$x$};
+      \path [draw=orange] (A22) -- (E4) node[near start, right] {$50-x$};
+      \path (A23) -- (E5) node[near start, left] {$x$};
+      \path [draw=orange] (A23) -- (E6) node[near start, right] {$50-x$};
+\end{tikzpicture}
+\end{frame}
+
+\section{Aufgabe 2 c}
+\begin{frame}[fragile]
+  \footnotesize c) Nennen Sie ein teilspielperfektes Equilibrium dieses
+  Spieles.\\
+  \vspace{0.5cm}
+  \normalsize
+  \begin{tikzpicture}[level/.style = {sibling distance = 180mm - 680mm/3 *
+    #1 + 100mm * #1 * #1 - 40mm/3 * #1 * #1 * #1, level distance = 1.5cm}]
+    \node [treenode,circle,draw] (A11) {1}
+    child{ node (A21) {}
+      child{ node (E1) {$(6,6)$}}
+      child{ node (E2) {$(10,2)$}}}
+    child{ node (A22) {}
+      child{ node (E3) {$(2,10)$}}
+      child{ node [treenode,circle,draw] (A12) {1}
+        child{ node (A23) {}
+          child{ node (E4) {$(15,15)$}}
+          child{ node (E5) {$(20,10)$}}}
+        child{ node (A24) {}
+          child{ node (E6) {$(10,20)$}}
+          child{ node (E7) {$(15,15)$}}}}};
+
+      \node [treenode,ellipse,draw,text width=3.5cm,fill=white] (B1) at ($(A21)!0.5!(A22)$) {2};
+      \node [treenode,ellipse,draw,text width=3.5cm,fill=white] (B2) at ($(A23)!0.5!(A24)$) {2};
+
+      \path (A11) -- (A21) node[near start, above left] {W};
+      \path [draw=orange] (A11) -- (A22) node[near start, above right] {N};
+      \path [draw=orange] (A21) -- (E1) node[near start, left] {W};
+      \path (A21) -- (E2) node[near start, right] {N};
+      \path (A22) -- (E3) node[near start, left] {W};
+      \path [draw=orange] (A22) -- (A12) node[near start, right] {N};
+      \path [draw=orange] (A12) -- (A23) node[near start, left] {W};
+      \path (A12) -- (A24) node[near start, right] {N};
+      \path [draw=orange] (A23) -- (E4) node[near start, left] {W};
+      \path (A23) -- (E5) node[near start, right] {N};
+      \path [draw=orange] (A24) -- (E6) node[near start, left] {W};
+      \path (A24) -- (E7) node[near start, right] {N};
+\end{tikzpicture}
+\end{frame}
+
+\section{Aufgabe 2 d}
+\begin{frame}
+  \footnotesize d) Begründen Sie, warum in einem extensiven Spiel mit perfekter
+  Information ein durch Rückwärtsinduktion gefundener Ausgang ein
+  Nash-Gleichgewicht sein muss.\\
+  \vspace{0.2cm}
+  \normalsize
+  In einem extensiven Spiel mit perfekter Information wird durch
+  Rückwärtsinduktion in jedem Teilspiel ein Teilspielperfektes Equilibrium
+  gefunden. Keiner der Akteure könnte sich in einer Situation anders
+  entscheiden um seine Situation zu verbessern.\\
+  Das so enstehende Teilspielperfekte Equilibrium für das gesamte Spiel ist
+  also gleichzeitig auch ein Nach-Gleichgewicht.
+\end{frame}
+
+\section{Aufgabe 2 e}
+\begin{frame}[fragile]
+  \footnotesize e) 1) Stellen Sie Fußball/Komödie als UVEF-Spiel dar.\\
+  \vspace{0.5cm}
+  \normalsize
+  \begin{tikzpicture}[level/.style = {sibling distance = 180mm - 680mm/3 *
+    #1 + 100mm * #1 * #1 - 40mm/3 * #1 * #1 * #1, level distance = 1.5cm}]
+    \node [treenode,ellipse,draw] (Ada) {Ada}
+    child{ node (B1) {}
+      child{ node (E1) {$(2,1)$}}
+      child{ node (E2) {$(0,0)$}}}
+    child{ node (B2) {}
+      child{ node (E3) {$(0,0)$}}
+      child{ node (E4) {$(1,2)$}}};
+
+      \node [treenode,ellipse,draw,text width=3.5cm,fill=white] (Bert) at
+      ($(B1)!0.5!(B2)$) {Bert};
+
+      \path (Ada) -- (B1) node[near start, above left] {f};
+      \path (Ada) -- (B2) node[near start, above right] {k};
+      \path (B1) -- (E1) node[near start, left] {f};
+      \path (B1) -- (E2) node[near start, right] {k};
+      \path (B2) -- (E3) node[near start, left] {f};
+      \path (B2) -- (E4) node[near start, right] {k};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}[fragile]
+  \footnotesize e) 2) Stellen Sie zweifaches Gefangendilemma als UVEF-Spiel dar.\\
+  \vspace{0.5cm}
+  \normalsize
+  \begin{tikzpicture}[level/.style = {sibling distance = - 1mm/6 * #1 * #1 *#1
+    + 6mm * #1 * #1 - 251mm/6 * #1 + 86mm , level
+    distance = 1.4cm}]
+    \node [treenode,circle,draw] (A11) {1}
+    child{ node (A21) {}
+      child{ node (A12) {}
+        child{ node (A23) {}
+          child{ node (E1) {\tiny\rotatebox{-90}{$(-2,-2)$}}}
+          child{ node (E2) {\tiny\rotatebox{-90}{$(-5,-1)$}}}}
+        child{ node (A24) {}
+          child{ node (E3) {\tiny\rotatebox{-90}{$(-1,-5)$}}}
+          child{ node (E4) {\tiny\rotatebox{-90}{$(-4,-4)$}}}}}
+      child{ node (A13) {}
+        child{ node (A25) {}
+          child{ node (E5) {\tiny\rotatebox{-90}{$(-5,-1)$}}}
+          child{ node (E6) {\tiny\rotatebox{-90}{$(-8,\phantom{-}0)$}}}}
+        child{ node (A26) {}
+          child{ node (E7) {\tiny\rotatebox{-90}{$(-4,-4)$}}}
+          child{ node (E8) {\tiny\rotatebox{-90}{$(-7,-4)$}}}}}}
+    child{ node (A22) {}
+      child{ node (A14) {}
+        child{ node (A27) {}
+          child{ node (E9) {\tiny\rotatebox{-90}{$(-1,-5)$}}}
+          child{ node (E10) {\tiny\rotatebox{-90}{$(-4,-7)$}}}}
+        child{ node (A28) {}
+          child{ node (E11) {\tiny\rotatebox{-90}{$(\phantom{-}0,-8)$}}}
+          child{ node (E12) {\tiny\rotatebox{-90}{$(-3,-7)$}}}}}
+      child{ node (A15) {}
+        child{ node (A29) {}
+          child{ node (E13) {\tiny\rotatebox{-90}{$(-4,-4)$}}}
+          child{ node (E14) {\tiny\rotatebox{-90}{$(-7,-3)$}}}}
+        child{ node (A30) {}
+          child{ node (E15) {\tiny\rotatebox{-90}{$(-3,-7)$}}}
+          child{ node (E16) {\tiny\rotatebox{-90}{$(-6,-6)$}}}}}};
+
+      \node [treenode,ellipse,draw,text width=4cm,fill=white] (Azwei1) at
+      ($(A21)!0.5!(A22)$) {2};
+      \node [treenode,ellipse,draw,text width=6cm,fill=white] (Aeins) at
+      ($(A13)!0.5!(A14)$) {1};
+      \node [treenode,ellipse,draw,text width=7cm,fill=white] (Azwei2) at
+      ($(A26)!0.5!(A27)$) {2};
+
+      \path (A11) -- (A21) node[near start, above left] {c};
+      \path (A11) -- (A22) node[near start, above right] {d};
+      \path (A21) -- (A12) node[near start, left] {c};
+      \path (A21) -- (A13) node[near start, right] {d};
+      \path (A22) -- (A14) node[near start, left] {c};
+      \path (A22) -- (A15) node[near start, right] {d};
+      \path (A12) -- (A23) node[near start, left] {c};
+      \path (A12) -- (A24) node[near start, right] {d};
+      \path (A13) -- (A25) node[near start, left] {c};
+      \path (A13) -- (A26) node[near start, right] {d};
+      \path (A14) -- (A27) node[near start, left] {c};
+      \path (A14) -- (A28) node[near start, right] {d};
+      \path (A15) -- (A29) node[near start, left] {c};
+      \path (A15) -- (A30) node[near start, right] {d};
+      \path (A23) -- (E1) node[near start, left] {c};
+      \path (A23) -- (E2) node[near start, right] {d};
+      \path (A24) -- (E3) node[near start, left] {c};
+      \path (A24) -- (E4) node[near start, right] {d};
+      \path (A25) -- (E5) node[near start, left] {c};
+      \path (A25) -- (E6) node[near start, right] {d};
+      \path (A26) -- (E7) node[near start, left] {c};
+      \path (A26) -- (E8) node[near start, right] {d};
+      \path (A27) -- (E9) node[near start, left] {c};
+      \path (A27) -- (E10) node[near start, right] {d};
+      \path (A28) -- (E11) node[near start, left] {c};
+      \path (A28) -- (E12) node[near start, right] {d};
+      \path (A29) -- (E13) node[near start, left] {c};
+      \path (A29) -- (E14) node[near start, right] {d};
+      \path (A30) -- (E15) node[near start, left] {c};
+      \path (A30) -- (E16) node[near start, right] {d};
+\end{tikzpicture}
+\end{frame}
+\end{document}
