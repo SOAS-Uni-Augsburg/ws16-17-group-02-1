@@ -14,6 +14,7 @@
 \displaywidowpenalty=10000
 \usetheme{Ilmenau}
 \usefonttheme{structuresmallcapsserif}
+\setbeamertemplate{navigation symbols}{}
 \title{Übungsblatt 06\\
 Aufgabe 2 (Extensive Spiele)}
 \author{Tim Blome, Michael Koller, Ayleen Schinko}
@@ -33,8 +34,8 @@ Aufgabe 2 (Extensive Spiele)}
     Ein strategisches Spiel $G = \left< N, (A_i)_{i\in N}, (u_i)_{i\in N}
     \right>$ besteht aus
     \begin{itemize}
-      \item einer endlichen Menge $N = 1,\dots , n$ an Spielern
-      \item einer Menge an Aktion $A_i$ für jeden Spieler
+      \item einer endlichen Menge $N = 1,\dots , n$ an Spielern,
+      \item einer Menge an Aktion $A_i$ für jeden Spieler,
       \item einer Nutzenfunktion (utility) $u_i : A_1 \times \dots \times A_n
         \rightarrow \mathbb{R}$ für jeden Spieler.
     \end{itemize}
@@ -49,16 +50,16 @@ Aufgabe 2 (Extensive Spiele)}
   \only<3>{\small Wir gehen davon aus, dass für jeden Spieler die Aktionsmenge endlich
   und nicht leer ist.\\
   Da für jeden Spieler die Nutzenfunktion einen Wert aus $\mathbb{R}$ liefert
-  und die $\leq$-Ordnung eine totale Ordnung Bildet auf $\mathbb{R}$, kann für
-  jede Komponente eines Ausgangs ein eindeutiger Vergleich zu jedem anderen
-  Ausgang hergestellt werden.\\
-  Widerspruchsbeweis: Angenommen: Es gibt ein Normalform spiel, in dem es
+  und die $\leq$-Ordnung eine totale Ordnung auf $\mathbb{R}$ bildet, kann für
+  jede Komponente eines Ausgangs ein eindeutiger Vergleich in dieser Komponente
+  zu jedem anderen Ausgang hergestellt werden.\\
+  Widerspruchsbeweis: Angenommen: Es gibt ein Normalformspiel, in dem es
   keinen pareto-optimalen Ausgang gibt.\\
   So müssen alle Ausgänge einen Zyklus bilden oder eine unendliche besser
   werdend Kette.\\
   Da auf den Ausgängen eine partielle Ordnung existiert, kann kein Zyklus
   in den Ausgangstupeln möglich sein. Die unendliche besser werdende Kette ist
-  nicht möglich, dass das Spiel endlich ist, da alle Aktionsmenge der Spieler
+  nicht möglich, da das Spiel endlich ist, weil alle Aktionsmenge der Spieler
   als endlich angenommen wurden.\\
   Es muss also in der Tupelmenge der Ausgänge mindestens ein lokales Maximum
   existieren, dass nach Definition dann pareto-optimal ist.
@@ -146,11 +147,11 @@ Aufgabe 2 (Extensive Spiele)}
   \vspace{0.2cm}
   \normalsize
   In einem extensiven Spiel mit perfekter Information wird durch
-  Rückwärtsinduktion in jedem Teilspiel ein Teilspielperfektes Equilibrium
+  Rückwärtsinduktion in jedem Teilspiel ein teilspielperfektes Equilibrium
   gefunden. Keiner der Akteure könnte sich in einer Situation anders
   entscheiden um seine Situation zu verbessern.\\
-  Das so enstehende Teilspielperfekte Equilibrium für das gesamte Spiel ist
-  also gleichzeitig auch ein Nach-Gleichgewicht.
+  Das so enstehende teilspielperfekte Equilibrium für das gesamte Spiel ist
+  also gleichzeitig auch ein Nash-Gleichgewicht.
 \end{frame}
 
 \section{Aufgabe 2 e}
