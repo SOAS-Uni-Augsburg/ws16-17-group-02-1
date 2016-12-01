@@ -46,23 +46,35 @@ Aufgabe 2 (Extensive Spiele)}
   \end{Definition}
   Wenn $o$ und $o'$ Ausgänge eines Spieles eines, sodass $o$ für alle Spieler
   mindestens so gut ist wie $o'$ und $o$ von einem Spieler echt bevorzugt wird,
-  dann pareto-dominiert $o$ $o'$.}
-  \only<3>{\small Wir gehen davon aus, dass für jeden Spieler die Aktionsmenge endlich
-  und nicht leer ist.\\
-  Da für jeden Spieler die Nutzenfunktion einen Wert aus $\mathbb{R}$ liefert
-  und die $\leq$-Ordnung eine totale Ordnung auf $\mathbb{R}$ bildet, kann für
-  jede Komponente eines Ausgangs ein eindeutiger Vergleich in dieser Komponente
-  zu jedem anderen Ausgang hergestellt werden.\\
-  Widerspruchsbeweis: Angenommen: Es gibt ein Normalformspiel, in dem es
-  keinen pareto-optimalen Ausgang gibt.\\
-  So müssen alle Ausgänge einen Zyklus bilden oder eine unendliche besser
-  werdend Kette.\\
-  Da auf den Ausgängen eine partielle Ordnung existiert, kann kein Zyklus
-  in den Ausgangstupeln möglich sein. Die unendliche besser werdende Kette ist
-  nicht möglich, da das Spiel endlich ist, weil alle Aktionsmenge der Spieler
-  als endlich angenommen wurden.\\
-  Es muss also in der Tupelmenge der Ausgänge mindestens ein lokales Maximum
-  existieren, dass nach Definition dann pareto-optimal ist.
+  dann pareto-dominiert $o$ $o'$.\\
+  \vspace{0.5cm}
+  nach Definition:\\
+  Wenn für alle Spieler $o \geq o'$ (und für mindestens einen $\neq$), dann
+  pareto-dominiert $o$ $o'$.
+  }
+  \only<3>{
+  \begin{itemize}
+    \item Jede Aktionsmenge eines Spielers endlich und nicht leer
+    \item Durch Nutzenfunktion totale Ordnung auf             Aktionsmenge
+  \end{itemize}
+
+  Widerspruchsbeweis:\\
+  Existiert Normalformspiel ohne Pareto optimalen Ausgang, so
+
+  \begin{itemize}
+    \item Bilden alle Ausgänge einen Zyklus
+    \begin{itemize}
+      \item[\boldmath$\rightarrow$] Zyklus nicht möglich, da partielle Ordnung
+    \end{itemize}
+    \item Bilden Ausgänge unendlich bessere werdende Kette
+    \begin{itemize}
+      \item[\boldmath$\rightarrow$] Kette nicht möglich, da Aktionsmenge endlich
+    \end{itemize}
+  \end{itemize}
+
+
+  $\Rightarrow$ Es existiert lokales Maximum\\
+  $\Rightarrow$ Pareto optimaler Ausgang
   }
 \end{frame}
 
@@ -71,32 +83,39 @@ Aufgabe 2 (Extensive Spiele)}
   \footnotesize b) Angenommen, zwei Spieler teilen 50 (gleichwertige) Münzen auf. Der Nutzen
   von Spielern ist die Menge von erhaltenen Münzen. Zuerst kann Spieler 1 die
   Münzen aufteilen, danach Spieler 2 den Anteil wählen. Bestimmen Sie ein
-  Nash-Gleichgewicht mittels Rückwärtsinduktion.\\
-  \vspace{0.5cm}
+  Nash-Gleichgewicht mittels Rückwärtsinduktion.
+  $$ y=50-x $$\\
   \normalsize
+  \begin{center}
   \begin{tikzpicture}[level/.style = {sibling distance = 35mm/#1, level
     distance = 2cm}]
-    \node [treenode,ellipse,draw] (A1) {Agent 1\\$(25,25)$}
-    child{ node [treenode,ellipse,draw] (A21) {Agent 2\\$(50-x,x)$}
-      child{ node (E1) {$(50-x,x)$}}
-      child{ node (E2) {$(x,50-x)$}}}
-    child{ node [treenode,ellipse,draw] (A22) {Agent 2\\$(25,25)$}
+    \node [treenode,ellipse,draw] (A1) {Agent 1\\ \only<5->{$(25,25)$}}
+    child{ node [treenode,ellipse,draw] (A21) {Agent 2\\ \only<2->{$(y,x)$}}
+      child{ node (E1) {$(y,x)$}}
+      child{ node (E2) {$(x,y)$}}}
+    child{ node [treenode,ellipse,draw] (A22) {Agent 2\\ \only<3->{$(25,25)$}}
       child{ node (E3) {$(25,25)$}}
       child{ node (E4) {$(25,25)$}}}
-    child{ node [treenode,ellipse,draw] (A23) {Agent 2\\$(x,50-x)$}
-      child{ node (E5) {$(50-x,x)$}}
-      child{ node (E6) {$(x,50-x)$}}};
+    child{ node [treenode,ellipse,draw] (A23) {Agent 2\\ \only<4->{$(x,y)$}}
+      child{ node (E5) {$(y,x)$}}
+      child{ node (E6) {$(x,y)$}}};
 
-      \path (A1) -- (A21) node[near start, above left] {$x > 50-x$};
-      \path [draw=orange] (A1) -- (A22) node[near start] {$x = 50-x$};
-      \path (A1) -- (A23) node[near start, above right] {$x < 50-x$};
-      \path [draw=orange] (A21) -- (E1) node[near start, left] {$x$};
-      \path (A21) -- (E2) node[near start, right] {$50-x$};
-      \path [draw=orange] (A22) -- (E3) node[near start, left] {$x$};
-      \path [draw=orange] (A22) -- (E4) node[near start, right] {$50-x$};
+      \path (A1) -- (A21) node[near start, above left] {$x > y$};
+      \only<1-4>{\path (A1) -- (A22) node[near start] {$x = y$};}
+      \only<5->{\path [draw=orange, line width=2pt] (A1) -- (A22) node[near start] {$x = y$};}
+      \path (A1) -- (A23) node[near start, above right] {$x < y$};
+      \only<1>{\path (A21) -- (E1) node[near start, left] {$x$};}
+      \only<2->{\path [draw=orange, line width=2pt] (A21) -- (E1) node[near start, left] {$x$};}
+      \path (A21) -- (E2) node[near start, right] {$y$};
+      \only<1-2>{\path (A22) -- (E3) node[near start, left] {$x$};}
+      \only<3->{\path [draw=orange, line width=2pt] (A22) -- (E3) node[near start, left] {$x$};}
+      \only<1-2>{\path (A22) -- (E4) node[near start, right] {$y$};}
+      \only<3->{\path [draw=orange, line width=2pt] (A22) -- (E4) node[near start, right] {$y$};}
       \path (A23) -- (E5) node[near start, left] {$x$};
-      \path [draw=orange] (A23) -- (E6) node[near start, right] {$50-x$};
-\end{tikzpicture}
+      \only<1-3>{\path (A23) -- (E6) node[near start, right] {$y$};}
+      \only<4->{\path [draw=orange, line width=2pt] (A23) -- (E6) node[near start, right] {$y$};}
+  \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 \section{Aufgabe 2 c}
@@ -105,6 +124,7 @@ Aufgabe 2 (Extensive Spiele)}
   Spieles.\\
   \vspace{0.5cm}
   \normalsize
+  \begin{center}
   \begin{tikzpicture}[level/.style = {sibling distance = 180mm - 680mm/3 *
     #1 + 100mm * #1 * #1 - 40mm/3 * #1 * #1 * #1, level distance = 1.5cm}]
     \node [treenode,circle,draw] (A11) {1}
@@ -121,22 +141,31 @@ Aufgabe 2 (Extensive Spiele)}
           child{ node (E6) {$(10,20)$}}
           child{ node (E7) {$(15,15)$}}}}};
 
+      \path (A11) -- (A21) node[near start, above left] {W};
+      \only<1-6>{\path (A11) -- (A22) node[near start, above right] {N};}
+      \only<7->{\path [draw=orange, line width=2pt] (A11) -- (A22) node[near start, above right] {N};}
+      \only<1-5>{\path (A21) -- (E1) node[near start, left] {W};}
+      \only<6->{\path [draw=orange, line width=2pt] (A21) -- (E1) node[near start, left] {W};}
+      \path (A21) -- (E2) node[near start, right] {N};
+      \path (A22) -- (E3) node[near start, left] {W};
+      \only<1-4>{\path (A22) -- (A12) node[near start, right] {N};}
+      \only<5->{\path [draw=orange, line width=2pt] (A22) -- (A12) node[near start, right] {N};}
+      \only<1-3>{\path (A12) -- (A23) node[near start, left] {W};}
+      \only<4->{\path [draw=orange, line width=2pt] (A12) -- (A23) node[near start, left] {W};}
+      \path (A12) -- (A24) node[near start, right] {N};
+      \only<1-2>{\path (A23) -- (E4) node[near start, left] {W};}
+      \only<3->{\path [draw=orange, line width=2pt] (A23) -- (E4) node[near start, left] {W};}
+      \path (A23) -- (E5) node[near start, right] {N};
+      \only<1>{\path (A24) -- (E6) node[near start, left] {W};}
+      \only<2->{\path [draw=orange, line width=2pt] (A24) -- (E6) node[near start, left] {W};}
+      \path (A24) -- (E7) node[near start, right] {N};
+
       \node [treenode,ellipse,draw,text width=3.5cm,fill=white] (B1) at ($(A21)!0.5!(A22)$) {2};
       \node [treenode,ellipse,draw,text width=3.5cm,fill=white] (B2) at ($(A23)!0.5!(A24)$) {2};
 
-      \path (A11) -- (A21) node[near start, above left] {W};
-      \path [draw=orange] (A11) -- (A22) node[near start, above right] {N};
-      \path [draw=orange] (A21) -- (E1) node[near start, left] {W};
-      \path (A21) -- (E2) node[near start, right] {N};
-      \path (A22) -- (E3) node[near start, left] {W};
-      \path [draw=orange] (A22) -- (A12) node[near start, right] {N};
-      \path [draw=orange] (A12) -- (A23) node[near start, left] {W};
-      \path (A12) -- (A24) node[near start, right] {N};
-      \path [draw=orange] (A23) -- (E4) node[near start, left] {W};
-      \path (A23) -- (E5) node[near start, right] {N};
-      \path [draw=orange] (A24) -- (E6) node[near start, left] {W};
-      \path (A24) -- (E7) node[near start, right] {N};
-\end{tikzpicture}
+      % \node [above of=A11] {$(15,15)$};
+  \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 \section{Aufgabe 2 d}
@@ -146,12 +175,14 @@ Aufgabe 2 (Extensive Spiele)}
   Nash-Gleichgewicht sein muss.\\
   \vspace{0.2cm}
   \normalsize
-  In einem extensiven Spiel mit perfekter Information wird durch
-  Rückwärtsinduktion in jedem Teilspiel ein teilspielperfektes Equilibrium
-  gefunden. Keiner der Akteure könnte sich in einer Situation anders
-  entscheiden um seine Situation zu verbessern.\\
-  Das so enstehende teilspielperfekte Equilibrium für das gesamte Spiel ist
-  also gleichzeitig auch ein Nash-Gleichgewicht.
+  In solchem Spiel wird durch Rückwärtsinduktion in jedem Teilspiel ein
+  teilspielperfektes Equilibrium gefunden.\\
+  \vspace{0.3cm}
+  $\Rightarrow$ Kein Akteur kann sich in Situation durch Umentscheiden
+  verbessern\\
+  \vspace{0.3cm}
+  $\Rightarrow$ Teilspielperfektes Equilibrium für gesamtes Spiel ist
+  Nash-Gleichgewicht
 \end{frame}
 
 \section{Aufgabe 2 e}
@@ -159,6 +190,7 @@ Aufgabe 2 (Extensive Spiele)}
   \footnotesize e) 1) Stellen Sie Fußball/Komödie als UVEF-Spiel dar.\\
   \vspace{0.5cm}
   \normalsize
+  \begin{center}
   \begin{tikzpicture}[level/.style = {sibling distance = 180mm - 680mm/3 *
     #1 + 100mm * #1 * #1 - 40mm/3 * #1 * #1 * #1, level distance = 1.5cm}]
     \node [treenode,ellipse,draw] (Ada) {Ada}
@@ -178,26 +210,28 @@ Aufgabe 2 (Extensive Spiele)}
       \path (B1) -- (E2) node[near start, right] {k};
       \path (B2) -- (E3) node[near start, left] {f};
       \path (B2) -- (E4) node[near start, right] {k};
-\end{tikzpicture}
+  \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 \begin{frame}[fragile]
   \footnotesize e) 2) Stellen Sie zweifaches Gefangendilemma als UVEF-Spiel dar.\\
   \vspace{0.5cm}
   \normalsize
+  \begin{center}
   \begin{tikzpicture}[level/.style = {sibling distance = - 1mm/6 * #1 * #1 *#1
     + 6mm * #1 * #1 - 251mm/6 * #1 + 86mm , level
     distance = 1.4cm}]
     \node [treenode,circle,draw] (A11) {1}
     child{ node (A21) {}
-      child{ node (A12) {}
+      child{ node [treenode,circle,draw] (A12) {1}
         child{ node (A23) {}
           child{ node (E1) {\tiny\rotatebox{-90}{$(-2,-2)$}}}
           child{ node (E2) {\tiny\rotatebox{-90}{$(-5,-1)$}}}}
         child{ node (A24) {}
           child{ node (E3) {\tiny\rotatebox{-90}{$(-1,-5)$}}}
           child{ node (E4) {\tiny\rotatebox{-90}{$(-4,-4)$}}}}}
-      child{ node (A13) {}
+      child{ node [treenode,circle,draw] (A13) {1}
         child{ node (A25) {}
           child{ node (E5) {\tiny\rotatebox{-90}{$(-5,-1)$}}}
           child{ node (E6) {\tiny\rotatebox{-90}{$(-8,\phantom{-}0)$}}}}
@@ -205,27 +239,20 @@ Aufgabe 2 (Extensive Spiele)}
           child{ node (E7) {\tiny\rotatebox{-90}{$(-4,-4)$}}}
           child{ node (E8) {\tiny\rotatebox{-90}{$(-7,-4)$}}}}}}
     child{ node (A22) {}
-      child{ node (A14) {}
+      child{ node [treenode,circle,draw] (A14) {1}
         child{ node (A27) {}
           child{ node (E9) {\tiny\rotatebox{-90}{$(-1,-5)$}}}
           child{ node (E10) {\tiny\rotatebox{-90}{$(-4,-7)$}}}}
         child{ node (A28) {}
           child{ node (E11) {\tiny\rotatebox{-90}{$(\phantom{-}0,-8)$}}}
           child{ node (E12) {\tiny\rotatebox{-90}{$(-3,-7)$}}}}}
-      child{ node (A15) {}
+      child{ node [treenode,circle,draw] (A15) {1}
         child{ node (A29) {}
           child{ node (E13) {\tiny\rotatebox{-90}{$(-4,-4)$}}}
           child{ node (E14) {\tiny\rotatebox{-90}{$(-7,-3)$}}}}
         child{ node (A30) {}
           child{ node (E15) {\tiny\rotatebox{-90}{$(-3,-7)$}}}
           child{ node (E16) {\tiny\rotatebox{-90}{$(-6,-6)$}}}}}};
-
-      \node [treenode,ellipse,draw,text width=4cm,fill=white] (Azwei1) at
-      ($(A21)!0.5!(A22)$) {2};
-      \node [treenode,ellipse,draw,text width=6cm,fill=white] (Aeins) at
-      ($(A13)!0.5!(A14)$) {1};
-      \node [treenode,ellipse,draw,text width=7cm,fill=white] (Azwei2) at
-      ($(A26)!0.5!(A27)$) {2};
 
       \path (A11) -- (A21) node[near start, above left] {c};
       \path (A11) -- (A22) node[near start, above right] {d};
@@ -257,6 +284,18 @@ Aufgabe 2 (Extensive Spiele)}
       \path (A29) -- (E14) node[near start, right] {d};
       \path (A30) -- (E15) node[near start, left] {c};
       \path (A30) -- (E16) node[near start, right] {d};
-\end{tikzpicture}
+
+      \node [treenode,ellipse,draw,text width=4cm,fill=white] (Azwei1) at
+      ($(A21)!0.5!(A22)$) {2};
+      \node [treenode,ellipse,draw,text width=1cm,fill=white] (Azwei21) at
+      ($(A23)!0.5!(A24)$) {2};
+      \node [treenode,ellipse,draw,text width=1cm,fill=white] (Azwei22) at
+      ($(A25)!0.5!(A26)$) {2};
+      \node [treenode,ellipse,draw,text width=1cm,fill=white] (Azwei23) at
+      ($(A27)!0.5!(A28)$) {2};
+      \node [treenode,ellipse,draw,text width=1cm,fill=white] (Azwei24) at
+      ($(A29)!0.5!(A30)$) {2};
+  \end{tikzpicture}
+  \end{center}
 \end{frame}
 \end{document}
